@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "837802535661",
+    "project_id": "upworkdemo-bbfef",
+    "storage_bucket": "upworkdemo-bbfef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:837802535661:android:5ad16a96b0d28609387ae4",
+        "android_client_info": {
+          "package_name": "com.sharesphere"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFJUXknZh1FoXtxTgxzBAW_-lGUrIKST0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

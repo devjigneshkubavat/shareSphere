@@ -4,12 +4,12 @@ import {createRef} from 'react';
 export const navigationRef = createRef();
 
 export const navigate = (routename, params) =>
-  navigationRef.current.navigate(routename, params);
+  navigationRef.current?.navigate(routename, params);
 
 export const goBack = () => navigationRef.current.goBack();
 
 export const resetStackNavigation = (routename, params) => {
-  return navigationRef.dispatch(
+  return navigationRef.current.dispatch(
     CommonActions.reset({
       index: 1,
       routes: [

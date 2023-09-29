@@ -1,12 +1,25 @@
 //import liraries
-import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React from 'react';
+import {View, Text, StyleSheet} from 'react-native';
 import MainNavigation from './src/navigation/MainNavigation';
+import Toast from 'react-native-toast-message';
 
 // create a component
 const App = () => {
+
+  const toastConfig = {
+    tomatoToast: ({text1, props}) => (
+      <View style={styles.toastContainer}>
+        <Text style={styles.toastText}>{text1}</Text>
+      </View>
+    ),
+  };
+
   return (
-      <MainNavigation/>
+    <>
+      <MainNavigation />
+      <Toast config={toastConfig} />
+    </>
   );
 };
 
@@ -18,6 +31,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#2c3e50',
   },
+  toastContainer: {
+    height: 60,
+    width: '90%',
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    borderRadius: 20,
+    justifyContent: 'center',
+    paddingLeft: 20,
+  },
+  toastText : {
+    color : 'white'
+  }
 });
 
 //make this component available to the app
