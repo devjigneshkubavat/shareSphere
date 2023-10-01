@@ -1,10 +1,9 @@
 import auth from '@react-native-firebase/auth';
-import {addUserToCollection} from './firebaseServices';
+import {addUserToCollection, getUserData} from './firebaseServices';
 import {setItemToAsync} from '../helper/globalFunction';
 import {asyncConst} from '../helper/globalConstant';
 
-export const signup = request => {
-  console.log("Request :: ",request?.data, request);
+export const signup = request => async (dispatch) => {
   try {
     auth()
     .createUserWithEmailAndPassword(
@@ -18,8 +17,10 @@ export const signup = request => {
         uid: res?.user?.uid,
         username: request?.data?.username,
       });
-      setItemToAsync(asyncConst.uid, uid);
-      if (request?.onSuccess) request?.onSuccess(res);
+       dispatch(getUserData(res?.user?.uid, () => {
+        setItemToAsync(asyncConst.uid, uid);
+        if (request?.onSuccess) request?.onSuccess(res);
+       }))
     })
     .catch(error => {
       console.log("Error :: ",error);
@@ -31,13 +32,17 @@ export const signup = request => {
   
 };
 
-export const login = request => {
+export const login = request => async (dispatch) => {
   auth()
     .signInWithEmailAndPassword(request?.data?.email, request?.data?.password)
     .then(res => {
       const {uid} = res?.user;
-      setItemToAsync(asyncConst.uid, uid);
-      if (request?.onSuccess) request?.onSuccess(res);
+      // setItemToAsync(asyncConst.uid, uid);
+        dispatch(getUserData(res?.user?.uid, () => {
+          setItemToAsync(asyncConst.uid, uid);
+          if (request?.onSuccess) request?.onSuccess(res);
+         }))
+      // if (request?.onSuccess) request?.onSuccess(res);
     })
     .catch(error => {
       if (request?.onFail) request?.onFail(error);

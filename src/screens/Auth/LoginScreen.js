@@ -8,6 +8,7 @@ import { login, signup } from '../../api/authAPI';
 import { showToast, validateEmail } from '../../helper/globalFunction';
 import { resetStackNavigation } from '../../helper/navigationRef';
 import { routeName } from '../../helper/globalConstant';
+import { useDispatch } from 'react-redux';
 
 // create a component
 const LoginScreen = ({route}) => {
@@ -19,7 +20,8 @@ const LoginScreen = ({route}) => {
     signupMethod === 'Login' ? false : true,
   );
   const [username, setUsername] = useState('');
-  const [errorMessage, setErrorMessage] = useState('')
+
+  const dispatch = useDispatch()
 
   const onEmailChange = txt => {
     setEmail(txt);
@@ -58,9 +60,9 @@ const LoginScreen = ({route}) => {
       }
     if(isSignup){
       request.data.username = username
-      signup(request)
+      dispatch(signup(request))
     }else{
-      login(request)
+      dispatch(login(request))
     }
   }
   };

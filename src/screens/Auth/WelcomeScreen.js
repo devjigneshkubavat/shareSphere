@@ -7,19 +7,22 @@ import {navigate, resetStackNavigation} from '../../helper/navigationRef';
 import {asyncConst, routeName} from '../../helper/globalConstant';
 import {getItemFromAsync, setItemToAsync} from '../../helper/globalFunction';
 import { getUserData } from '../../api/firebaseServices';
+import { useDispatch } from 'react-redux';
 
 // create a component
 const WelcomeScreen = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     (async () => {
         try {
             const isLogedIn = await getItemFromAsync(asyncConst.uid);
             if (isLogedIn) {
-                const userData = await getUserData(isLogedIn);
-                setItemToAsync(asyncConst.userDetails, userData)
-                resetStackNavigation(routeName.homeScreen);
+                 dispatch(getUserData(isLogedIn, () => {
+                   resetStackNavigation(routeName.homeScreen);
+                 }));
               }
               else{
                 setIsLoggedIn(false)

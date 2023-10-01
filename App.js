@@ -3,6 +3,8 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import MainNavigation from './src/navigation/MainNavigation';
 import Toast from 'react-native-toast-message';
+import { Provider } from 'react-redux';
+import { store } from './src/reducer/store';
 
 // create a component
 const App = () => {
@@ -16,10 +18,10 @@ const App = () => {
   };
 
   return (
-    <>
+    <Provider store={store} >
       <MainNavigation />
       <Toast config={toastConfig} />
-    </>
+    </Provider>
   );
 };
 
